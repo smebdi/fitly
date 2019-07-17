@@ -28,7 +28,7 @@ class Home extends Component {
       headerTransparent: true,
       headerRight: (
         <NavIcon
-          icon={require('../../assets/icons/info/question.png')}
+          icon={require('../../assets/icons/info/question_dark.png')}
           width={22}
           height={22}
           onPress={() => navigation.navigate("Home")}
@@ -45,14 +45,10 @@ class Home extends Component {
       return (
         <Fragment>
           <StatusBar barStyle="light-content" />
-          <View>
-            <StatusBar />
-          </View>
           <View style={{flex: 1}}>
-              {/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.gradientView} /> */}
-              <ImageBackground source={require('../../assets/fitly_background.png')} style={styles.gradientView}>
-                <Text style={styles.sectionTitle}>Fitly</Text>
-              </ImageBackground>
+            <ImageBackground source={require('../../assets/fitly_background.png')} style={styles.gradientView}>
+              <Text style={styles.sectionTitle}>Fitly</Text>
+            </ImageBackground>
           </View>
         </Fragment>
       );

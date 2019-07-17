@@ -4,7 +4,7 @@ import { createAppContainer, createStackNavigator, createBottomTabNavigator, Bot
 
 import Home from '../screens/Home';
 import Calendar from '../screens/Calendar';
-import Exercise from '../screens/Calendar';
+import Exercise from '../screens/Exercise';
 
 const HomeIcon = require("../../assets/icons/home/home.png");
 const HomeColorIcon = require("../../assets/icons/home/home_color.png");
