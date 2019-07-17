@@ -9,6 +9,14 @@ const CalendarIcon = require("../../assets/icons/calendar_list/list.png");
 
 class CalendarScreen extends Component {
 
+  static navigationOptions = {
+    headerStyle: {
+      height: 0,
+      width: 0,
+    },
+    headerTransparent: true
+  };
+
   constructor(props) {
     console.log(props)
     super(props);
@@ -18,25 +26,7 @@ class CalendarScreen extends Component {
     modalOpen: false, 
     modalTitle: "", 
     selectedDate: null 
-  };
-
-  render() {
-    return {
-        headerTitle: "CALENDAR",
-        headerTitleStyle: {
-            fontFamily: "Menlo-bold",
-            color: "#2d2d2d"
-        },
-        headerRight: (
-            <NavIcon
-                icon={CalendarIcon}
-                width={22}
-                height={14}
-                onPress={() => this.props.navigation.navigate("")}
-            />
-        )
-        };
-  }   
+  }; 
 
   dayPress = ({ dateString }) => {
     this.setState({ selectedDate: dateString });

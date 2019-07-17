@@ -10,6 +10,7 @@ import {
   ImageBackground,
   TouchableOpacity
 } from 'react-native';
+import NavIcon from '../components/navIcon';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {
@@ -17,6 +18,24 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 class Home extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+
+    return {
+      headerStyle: {
+        height: 22
+      },
+      headerTransparent: true,
+      headerRight: (
+        <NavIcon
+          icon={require('../../assets/icons/info/question.png')}
+          width={22}
+          height={22}
+          onPress={() => navigation.navigate("Home")}
+        />
+      )
+    }
+  };
  
   constructor(props) {
     super(props);
@@ -25,17 +44,16 @@ class Home extends Component {
   render() {
       return (
         <Fragment>
-        <StatusBar barStyle="dark-content" />
-        <View style={{flex: 1}}>
-            {/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.gradientView} /> */}
-            <ImageBackground source={require('../../assets/fitly_background.png')} style={styles.gradientView}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Other')}>
-                    <Text style={styles.sectionTitle}>Fitly</Text>
-                </TouchableOpacity>
-                <Text style={styles.footer}>Built with React Native</Text>
-                <Text style={styles.footer}>Engine: Hermes</Text>
-            </ImageBackground>
-        </View>
+          <StatusBar barStyle="light-content" />
+          <View>
+            <StatusBar />
+          </View>
+          <View style={{flex: 1}}>
+              {/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.gradientView} /> */}
+              <ImageBackground source={require('../../assets/fitly_background.png')} style={styles.gradientView}>
+                <Text style={styles.sectionTitle}>Fitly</Text>
+              </ImageBackground>
+          </View>
         </Fragment>
       );
     }
