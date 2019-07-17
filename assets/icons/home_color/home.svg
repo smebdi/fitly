@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>home nav activeSVG</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="home-nav-active" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(9.000000, 9.000000)" stroke="#2D2D2D" stroke-width="1.25">
+            <polyline id="stroke-black-1.5,-fill-FF5E8B" fill="#FF5E8B" points="24 12 24 28 2 28 2 12"></polyline>
+            <polyline id="stroke-black-1.5,-fill-FF5E8B" fill="#FF5E8B" points="0 14 13.0037148 0 27 14"></polyline>
+            <polygon id="stroke-black-1.5,-fill-white" fill="#FFFFFF" points="10 28 16 28 16 19 10 19"></polygon>
+        </g>
+    </g>
+</svg>
