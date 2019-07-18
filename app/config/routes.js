@@ -5,6 +5,7 @@ import { createAppContainer, createStackNavigator, createBottomTabNavigator, Bot
 import Home from '../screens/Home';
 import Calendar from '../screens/Calendar';
 import Exercise from '../screens/Exercise';
+import ExerciseDetail from '../screens/ExerciseDetail';
 
 const HomeIcon = require("../../assets/icons/home/home.png");
 const HomeColorIcon = require("../../assets/icons/home/home_color.png");
@@ -31,11 +32,6 @@ const CalendarStack = createStackNavigator({
 });
 
 CalendarStack.navigationOptions = {
-    headerTitle: "Calendar",
-    headerTitleStyle: {
-        fontFamily: "Menlo-Bold",
-        color: "#2d2d2d"
-    },
     tabBarLabel: <View />,
     tabBarIcon: ({ focused }) => {
         return (focused) ?
@@ -45,15 +41,17 @@ CalendarStack.navigationOptions = {
 };
 
 const ExerciseStack = createStackNavigator({
-    Exercise
+    Exercise,
+    ExerciseDetail
 });
 
 ExerciseStack.navigationOptions = {
-    headerTitle: "Exercises",
     headerTitleStyle: {
         fontFamily: "Menlo-Bold",
         color: "#2d2d2d"
     },
+    headerTitleStyle: {color:'white'},
+    headerTintColor: 'white',
     tabBarLabel: <View />,
     tabBarIcon: ({ focused }) => {
         return (focused) ?

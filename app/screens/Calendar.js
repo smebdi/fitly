@@ -18,7 +18,6 @@ class CalendarScreen extends Component {
   };
 
   constructor(props) {
-    console.log(props)
     super(props);
   }
 

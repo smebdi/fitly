@@ -6,33 +6,14 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
-  Dimensions,
-  SafeAreaView,
   Text,
 } from 'react-native';
 import NavIcon from '../components/navIcon';
 import LinearGradient from 'react-native-linear-gradient';
 
-const running = require('../../assets/icons/exercise/running/running.png');
-const runningColor = require('../../assets/icons/exercise/running/running_color.png');
-const bike = require('../../assets/icons/exercise/biking/bicycle.png');
-const bikeColor = require('../../assets/icons/exercise/biking/bicycle_color.png');
-const lightLifting = require('../../assets/icons/exercise/lightLifting/lightLifting.png');
-const lightLiftingColor = require('../../assets/icons/exercise/lightLifting/lightLifting_color.png');
-const lightExercise = require('../../assets/icons/exercise/lightExercise/lightExercise.png');
-const lightExerciseColor = require('../../assets/icons/exercise/lightExercise/lightExercise_color.png');
-const heavyLifting = require('../../assets/icons/exercise/heavyLifting/heavyLifting.png');
-const heavyLiftingColor = require('../../assets/icons/exercise/heavyLifting/heavyLifting_color.png');
-const sports = require('../../assets/icons/exercise/sports/basketball.png');
-const sportsColor = require('../../assets/icons/exercise/sports/basketball_color.png');
-const swimming = require('../../assets/icons/exercise/swimming/swimming.png');
-const swimmingColor = require('../../assets/icons/exercise/swimming/swimming_color.png');
-const yoga = require('../../assets/icons/exercise/yoga/yoga.png');
-const yogaColor = require('../../assets/icons/exercise/yoga/yoga_color.png');
-const hiking = require('../../assets/icons/exercise/hiking/hiking.png');
-const hikingColor = require('../../assets/icons/exercise/hiking/hiking_color.png');
-const wheelchair = require('../../assets/icons/exercise/wheelchair/wheelchair.png');
-const wheelchairColor = require('../../assets/icons/exercise/wheelchair/wheelchair_color.png');
+import { exercises } from '../constants/exercises';
+const iconSize = 75;
+
 
 class Home extends Component {
 
@@ -55,114 +36,72 @@ class Home extends Component {
     super(props);
   }
 
+  state = {
+     exercises
+  }
+
+  highlight(key) {
+    this.state.exercises[key].isTouched = true
+    this.setState({
+      exercises: this.state.exercises
+    })
+  }
+
+  highlightOut(key) {
+    this.state.exercises[key].isTouched = false
+    this.setState({
+      exercises: this.state.exercises
+    })
+  }
+
+  navigate(exercise) {
+    this.props.navigation.navigate("ExerciseDetail", { exercise })
+  }
+
+  _renderItem(item) {
+    return (
+      <TouchableOpacity 
+        activeOpacity={.5}
+        style={{flex: 1}} 
+        onPressIn={() => {this.highlight(item.key)}}
+        onPressOut={() => {this.highlightOut(item.key)}}
+        onPress={() => {this.navigate(item)}}
+      >
+        <View style={[styles.grid]}>
+            <Image source={(!item.isTouched) ? item.icon: item.iconColor} style={styles.iconSize}/>
+            <Text style={styles.iconText}>{item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
+  _renderRow(leftItem, rightItem) {
+    return (
+      <View style={styles.exerciseRow}>
+        <View style={styles.borderGridLeft}>
+          {this._renderItem(leftItem)}
+        </View>
+        <View style={styles.borderGridRight}>
+          {this._renderItem(rightItem)}
+        </View>
+      </View>
+    )
+  }
+
   render() {
+
+      let { running, biking, lightLifting, lightExercise, heavyLifting, sports, swimming, yoga, hiking, wheelchair } = this.state.exercises
       return (
         <Fragment>
         <View style={styles.flexCenter}>
           <StatusBar barStyle="light-content" />
-            <LinearGradient colors={['slategray', 'gainsboro', 'white']} style={styles.linearGradient}>
+            <LinearGradient colors={['lightslategray', 'gainsboro', 'white']} style={styles.linearGradient}>
               <ScrollView style={[styles.header, {flex: 1}]}>
-
-                {/* row 1 */}
-                <View style={styles.exerciseRow}>
-                  <View style={styles.borderGridLeft}>
-                    <TouchableOpacity style={{flex: 1}}>
-                      <View style={[styles.grid]}>
-                          <Image source={running} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Walking/Running</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.borderGridRight}>
-                    <TouchableOpacity style={{flex: 1}}>
-                    <View style={[styles.grid]}>
-                          <Image source={bike} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Biking</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                {/* row 2 */}
-                <View style={styles.exerciseRow}>
-                  <View style={styles.borderGridLeft}>
-                    <TouchableOpacity style={{flex: 1}}>
-                      <View style={[styles.grid]}>
-                          <Image source={lightLifting} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Light Lifting</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.borderGridRight}>
-                    <TouchableOpacity style={{flex: 1}}>
-                    <View style={[styles.grid]}>
-                          <Image source={lightExercise} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Static Exercise</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                {/* row 3 */}
-                <View style={styles.exerciseRow}>
-                  <View style={styles.borderGridLeft}>
-                    <TouchableOpacity style={{flex: 1}}>
-                      <View style={[styles.grid]}>
-                          <Image source={heavyLifting} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Heavy Lifting</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.borderGridRight}>
-                    <TouchableOpacity style={{flex: 1}}>
-                    <View style={[styles.grid]}>
-                          <Image source={sports} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Sports</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                {/* row 4 */}
-                <View style={styles.exerciseRow}>
-                  <View style={styles.borderGridLeft}>
-                    <TouchableOpacity style={{flex: 1}}>
-                      <View style={[styles.grid]}>
-                          <Image source={swimming} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Swimming</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.borderGridRight}>
-                    <TouchableOpacity style={{flex: 1}}>
-                    <View style={[styles.grid]}>
-                          <Image source={yoga} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Yoga/Pilates</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                {/* row 5 */}
-                <View style={styles.exerciseRow}>
-                  <View style={[styles.borderGridLeft, { borderBottomWidth: 0 }]}>
-                    <TouchableOpacity style={{flex: 1}}>
-                      <View style={[styles.grid]}>
-                          <Image source={hiking} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Hiking</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={[styles.borderGridRight, { borderBottomWidth: 0 }]}>
-                    <TouchableOpacity style={{flex: 1}}>
-                    <View style={[styles.grid]}>
-                          <Image source={wheelchair} style={{height: 75, width: 75}}/>
-                          <Text style={{textAlign: "center", marginTop: 10}}>Wheelchair Distance</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
+                {this._renderRow(running, biking)}
+                {this._renderRow(lightLifting, lightExercise)}
+                {this._renderRow(heavyLifting, sports)}
+                {this._renderRow(swimming, yoga)}
+                {this._renderRow(hiking, wheelchair)}
               </ScrollView>
             </LinearGradient>
         </View>
@@ -206,6 +145,14 @@ const styles = StyleSheet.create({
     flex: 1,
     borderColor: 'slategray',
     borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  iconSize: {
+    height: iconSize,
+    width: iconSize
+  },
+  iconText: {
+    textAlign: "center", 
+    marginTop: 10
   }
 });
 
