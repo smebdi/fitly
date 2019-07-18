@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import NavIcon from '../components/navIcon';
 import LinearGradient from 'react-native-linear-gradient';
+import { BodyText } from '../components/styledText';
 
 import { exercises } from '../constants/exercises';
 const iconSize = 75;
@@ -78,10 +79,10 @@ class Home extends Component {
   _renderRow(leftItem, rightItem) {
     return (
       <View style={styles.exerciseRow}>
-        <View style={styles.borderGridLeft}>
+        <View style={[styles.borderGridLeft, (leftItem.isBottom) ? {borderBottomWidth: 0} : {}]}>
           {this._renderItem(leftItem)}
         </View>
-        <View style={styles.borderGridRight}>
+        <View style={[styles.borderGridRight, (rightItem.isBottom) ? {borderBottomWidth: 0} : {}]}>
           {this._renderItem(rightItem)}
         </View>
       </View>
@@ -152,7 +153,9 @@ const styles = StyleSheet.create({
   },
   iconText: {
     textAlign: "center", 
-    marginTop: 10
+    marginTop: 10,
+    // fontSize: 12,
+    // marginVertical: 0
   }
 });
 

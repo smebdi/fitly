@@ -50,8 +50,6 @@ ExerciseStack.navigationOptions = {
         fontFamily: "Menlo-Bold",
         color: "#2d2d2d"
     },
-    headerTitleStyle: {color:'white'},
-    headerTintColor: 'white',
     tabBarLabel: <View />,
     tabBarIcon: ({ focused }) => {
         return (focused) ?
@@ -62,8 +60,8 @@ ExerciseStack.navigationOptions = {
 
 export default createAppContainer(
     createBottomTabNavigator({
-    HomeStack,
-    CalendarStack,
-    ExerciseStack
-})
+        HomeStack,
+        CalendarStack,
+        ExerciseStack
+    })
 )
