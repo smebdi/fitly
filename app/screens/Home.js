@@ -65,11 +65,11 @@ class Home extends Component {
                   backgroundColor="#162C4450"
                   rotation={180}
                 >
-                  {(fill) => {console.log(fill); return(
+                  {(fill) => (
                       <H2 style={{color: 'whitesmoke', fontSize: 60}}>
                         { `${this.state.fill}%` }
                       </H2>
-                    )}
+                    )
                   }
                 </AnimatedCircularProgress>
 

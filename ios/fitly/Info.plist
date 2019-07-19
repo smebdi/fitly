@@ -38,7 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSansCondensed-Bold.ttf</string>
@@ -76,5 +76,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>To provide accurate, integrated value to the user about their daily fitness</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>To save recorded information provided by the user to their Apple Health</string>
 </dict>
 </plist>

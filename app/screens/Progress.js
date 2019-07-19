@@ -8,11 +8,8 @@ import {
   Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Button } from 'react-native-elements';
 import { H2, H3 } from '../components/styledText';
 
-const { width } = Dimensions.get('window');
-const iconSize = 125;
 const marginWidth = 15;
 
 class Progress extends Component {
@@ -53,7 +50,7 @@ class Progress extends Component {
                 <View style={[styles.grid, styles.subHeader]}>
                     <H2>Walking/Running</H2>
                 </View>
-                <View style={styles.grid}>
+                <View style={[styles.grid, styles.tableHeader]}>
                     <View style={styles.tableContainer}>
                         <View style={{flex:1, flexDirection: "row"}}>
                             <H3 style={[styles.table, styles.tableLeft]}>
@@ -81,7 +78,7 @@ class Progress extends Component {
                 <View style={[styles.grid, styles.subHeader]}>
                     <H2>Biking</H2>
                 </View>
-                <View style={styles.grid}>
+                <View style={[styles.grid, styles.tableHeader]}>
                     <View style={styles.tableContainer}>
                         <View style={{flex:1, flexDirection: "row"}}>
                             <H3 style={[styles.table, styles.tableLeft]}>
@@ -110,6 +107,9 @@ const styles = StyleSheet.create({
   subHeader: {
     marginTop: 40
   },
+  tableHeader: {
+    marginTop: marginWidth
+  },
   flexCenter: {
     flex: 1,
     justifyContent: 'center',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   tableContainer: {
     flexDirection: "row", 
     justifyContent: "center", 
-    marginHorizontal: 20
+    marginHorizontal: marginWidth
   }
 });
 
