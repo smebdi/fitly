@@ -17,7 +17,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const { width, height } = Dimensions.get('window');
 const iconSize = 125;
 const containerWidth = 300;
-const marginWidth = 15;
+const marginWidth = 20;
 
 const staticDurations = {
   5:  { isActive: false },
@@ -41,7 +41,7 @@ const staticDistanceUnits = {
   'Kilometers': { isActive: false }
 }
 
-class Home extends Component {
+class ExerciseDetail extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const exercise = navigation.state.params.exercise
@@ -124,7 +124,7 @@ class Home extends Component {
         <Fragment>
         <View style={styles.flexCenter}>
           <StatusBar barStyle="light-content" />
-            <LinearGradient colors={['slategray', 'lightslategray', 'whitesmoke']} style={styles.linearGradient}>
+            <LinearGradient colors={['#4e5964', 'slategray', '#f0f2f3']} style={styles.linearGradient}>
               <ScrollView style={[styles.header, {flex: 1}]}>
                 
                 <View style={styles.grid}>
@@ -144,7 +144,7 @@ class Home extends Component {
 
     _renderSaveButton = (func) => {
         return (
-          <View style={[{position: 'absolute', bottom: -120, left: marginWidth}]}>
+          <View style={[{position: 'absolute', bottom: -120, marginHorizontal: marginWidth}]}>
               <Button 
                 title={"Save"}
                 type="solid"
@@ -175,7 +175,7 @@ class Home extends Component {
       if (this.state.selectedForm == 'Distance') return (
         <View style={{flex: 1}}>
           <View style={styles.grid}>
-            <H2>Distance</H2>
+            <H2 style={{color: '#2d2d2d'}}>Distance</H2>
           </View>
 
           <View style={[styles.grid, { flexDirection: "column", justifyContent: "space-between", alignItems: "center", marginHorizontal: marginWidth, paddingTop: 20 }]}> 
@@ -204,7 +204,9 @@ class Home extends Component {
                 <TouchableOpacity style={{paddingHorizontal: 5, justifyContent: "center", alignItems: "center"}} onPress={() => {
                     this.setState({ 
                       sliderMaximum: (sliderMaximum * 2 < 50) ? Math.round(sliderMaximum * 2) : 50,
-                      sliderMinimum: (sliderMinimum / 2 > 0 && sliderMinimum > 0)  ? Math.round(sliderMinimum / 2) : 0
+                      sliderMinimum: (sliderMinimum / 2 > 0 && sliderMinimum > 0) ? Math.round(sliderMinimum / 2) : 0
+                    }, () => {
+                      if (sliderMaximum == 50) this.setState({ sliderMinimum: 0 })
                     })
                   }}
                 >
@@ -221,6 +223,7 @@ class Home extends Component {
                 minimumValue={sliderMinimum}
                 maximumValue={sliderMaximum}
                 value={distance}
+                step={0.05}
                 onValueChange={(val) => {
                   this.setState({distance: val})
                 }}
@@ -231,7 +234,7 @@ class Home extends Component {
             </View>
           </View>
 
-          <View style={styles.grid}>
+          <View style={[styles.grid, {justifyContent: "space-between", marginHorizontal: marginWidth}]}>
             {Object.keys(distanceUnits).map((v) => {
               return (
                 <Button 
@@ -242,7 +245,7 @@ class Home extends Component {
                   size={30}
                   buttonStyle={{ backgroundColor: '#303030', width: (containerWidth / this.objectLength(distanceUnits)) }}
                   titleStyle={{color: (!distanceUnits[v].isActive) ? 'white' : 'black'}}
-                  containerStyle={{ borderColor: "black", marginHorizontal: marginWidth }}
+                  containerStyle={{ borderColor: "black" }}
                   ViewComponent={LinearGradient}
                   linearGradientProps={(!distanceUnits[v].isActive) ?
                   {
@@ -393,4 +396,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default ExerciseDetail;

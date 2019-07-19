@@ -3,6 +3,7 @@ import { Image, View } from "react-native";
 import { createAppContainer, createStackNavigator, createBottomTabNavigator, BottomTabBar } from 'react-navigation';
 
 import Home from '../screens/Home';
+import Progress from '../screens/Progress';
 import Calendar from '../screens/Calendar';
 import Exercise from '../screens/Exercise';
 import ExerciseSelect from '../screens/ExerciseSelect';
@@ -10,6 +11,8 @@ import ExerciseDetail from '../screens/ExerciseDetail';
 
 const HomeIcon = require("../../assets/icons/home/home.png");
 const HomeColorIcon = require("../../assets/icons/home/home_color.png");
+const ProgressIcon = require("../../assets/icons/progress/progress.png");
+const ProgressColorIcon = require("../../assets/icons/progress/progress_color.png");
 const CalendarIcon = require("../../assets/icons/calendar/calendar.png");
 const CalendarColorIcon = require("../../assets/icons/calendar/calendar_color.png");
 const DumbbellIcon = require("../../assets/icons/dumbbell/dumbbell.png");
@@ -31,6 +34,19 @@ HomeStack.navigationOptions = {
 const CalendarStack = createStackNavigator({
     Calendar
 });
+
+const ProgressStack = createStackNavigator({
+    Progress
+})
+
+ProgressStack.navigationOptions = {
+    tabBarLabel: <View />,
+    tabBarIcon: ({ focused }) => {
+        return (focused) ?
+        <Image source={ProgressColorIcon} style={{ width: 28, height: 28 }} /> :
+        <Image source={ProgressIcon} style={{ width: 26, height: 26 }} />
+    }
+}
 
 CalendarStack.navigationOptions = {
     tabBarLabel: <View />,
@@ -63,6 +79,7 @@ ExerciseStack.navigationOptions = {
 export default createAppContainer(
     createBottomTabNavigator({
         HomeStack,
+        ProgressStack,
         CalendarStack,
         ExerciseStack
     })

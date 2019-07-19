@@ -24,11 +24,11 @@ class ExerciseSelect extends Component {
       },
       headerTitle: exercise.title,
       headerTitleStyle: {
-          fontFamily: "Menlo-Bold",
-          color: "whitesmoke",
-          fontSize: 20
+        fontFamily: "Menlo-Bold",
+        color: "#2d2d2d",
+        fontSize: 18
       },
-      headerTintColor: 'whitesmoke',
+      headerTintColor: '#2d2d2d',
       headerTransparent: true,
     }
   };

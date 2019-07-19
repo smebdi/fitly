@@ -1,17 +1,14 @@
 import React, {Fragment, Component} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
-  Image,
   ImageBackground,
-  TouchableOpacity
 } from 'react-native';
 import NavIcon from '../components/navIcon';
-import LinearGradient from 'react-native-linear-gradient';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { H2, BodyText, H3 } from '../components/styledText'
 
 import {
   Colors,
@@ -23,7 +20,13 @@ class Home extends Component {
 
     return {
       headerStyle: {
-        height: 22
+        height: 30
+      },
+      headerTitle: "Fitly",
+      headerTitleStyle: {
+          fontFamily: "Menlo-Bold",
+          color: "whitesmoke",
+          fontSize: 26
       },
       headerTransparent: true,
       headerRight: (
@@ -41,13 +44,43 @@ class Home extends Component {
     super(props);
   }
 
+  state = {
+    fill: 77
+  }
+
   render() {
       return (
         <Fragment>
           <StatusBar barStyle="light-content" />
           <View style={{flex: 1}}>
-            <ImageBackground source={require('../../assets/fitly_background.png')} style={styles.gradientView}>
-              <Text style={styles.sectionTitle}>Fitly</Text>
+            <ImageBackground source={require('../../assets/fitly_background.png')} style={styles.centeredView}>
+
+              <View style={styles.grid}>
+                <AnimatedCircularProgress
+                  ref={(ref) => this.circularProgress = ref}
+                  size={300}
+                  width={20}
+                  fill={this.state.fill}
+                  tintColor="#162C44"
+                  backgroundColor="#162C4450"
+                  rotation={180}
+                >
+                  {(fill) => {console.log(fill); return(
+                      <H2 style={{color: 'whitesmoke', fontSize: 60}}>
+                        { `${this.state.fill}%` }
+                      </H2>
+                    )}
+                  }
+                </AnimatedCircularProgress>
+
+                <View style={{position: "absolute", bottom: 20}}>
+                  <BodyText style={{fontSize: 15}}>
+                    You've almost reached your daily goal!
+                  </BodyText>
+                </View>
+
+              </View>
+
             </ImageBackground>
           </View>
         </Fragment>
@@ -59,44 +92,16 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
-  gradientView: {
+  centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-    textAlign: "center"
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.light,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'center',
+  grid: {
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center",
+    flexDirection: "column"
   },
 });
 
