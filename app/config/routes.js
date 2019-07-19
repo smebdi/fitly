@@ -5,6 +5,7 @@ import { createAppContainer, createStackNavigator, createBottomTabNavigator, Bot
 import Home from '../screens/Home';
 import Calendar from '../screens/Calendar';
 import Exercise from '../screens/Exercise';
+import ExerciseSelect from '../screens/ExerciseSelect';
 import ExerciseDetail from '../screens/ExerciseDetail';
 
 const HomeIcon = require("../../assets/icons/home/home.png");
@@ -42,6 +43,7 @@ CalendarStack.navigationOptions = {
 
 const ExerciseStack = createStackNavigator({
     Exercise,
+    ExerciseSelect,
     ExerciseDetail
 });
 

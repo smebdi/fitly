@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@eva-design/eva": "^1.0.1",
+    "@react-native-community/slider": "^2.0.0-rc.1",
     "react": "16.8.6",
     "react-native": "0.60.3",
     "react-native-calendars": "^1.198.0",

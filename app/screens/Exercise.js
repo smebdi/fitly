@@ -16,7 +16,7 @@ import { exercises } from '../constants/exercises';
 const iconSize = 75;
 
 
-class Home extends Component {
+class Exercise extends Component {
 
   static navigationOptions = ({ navigation }) => {
 
@@ -56,7 +56,7 @@ class Home extends Component {
   }
 
   navigate(exercise) {
-    this.props.navigation.navigate("ExerciseDetail", { exercise })
+    this.props.navigation.navigate("ExerciseSelect", { exercise })
   }
 
   _renderItem(item) {
@@ -154,9 +154,7 @@ const styles = StyleSheet.create({
   iconText: {
     textAlign: "center", 
     marginTop: 10,
-    // fontSize: 12,
-    // marginVertical: 0
   }
 });
 
-export default Home;
+export default Exercise;

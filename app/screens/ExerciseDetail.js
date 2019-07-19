@@ -5,34 +5,40 @@ import {
   View,
   StatusBar,
   Image,
-  TouchableOpacity,
   Text,
   Dimensions
 } from 'react-native';
+import Slider from '@react-native-community/slider';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button } from 'react-native-elements';
-import { H2 } from '../components/styledText';
+import { H2, BodyText } from '../components/styledText';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('window');
 const iconSize = 125;
 const containerWidth = 300;
-const marginWidth = 20;
+const marginWidth = 15;
 
 const staticDurations = {
-    5:  { isActive: false },
-    10: { isActive: false },
-    15: { isActive: false },
-    20: { isActive: false },
-    30: { isActive: false },
-    45: { isActive: false },
-    60: { isActive: false },
+  5:  { isActive: false },
+  10: { isActive: false },
+  15: { isActive: false },
+  20: { isActive: false },
+  30: { isActive: false },
+  45: { isActive: false },
+  60: { isActive: false },
 }
 
 // https://www.hhs.gov/fitness/be-active/ways-to-be-active/index.html
 const staticIntensities = {
-    'Light':    { isActive: false },
-    'Moderate': { isActive: false },
-    'Vigorous': { isActive: false },
+  'Light':    { isActive: false },
+  'Moderate': { isActive: false },
+  'Vigorous': { isActive: false },
+}
+
+const staticDistanceUnits = {
+  'Miles':      { isActive: true  },
+  'Kilometers': { isActive: false }
 }
 
 class Home extends Component {
@@ -60,9 +66,13 @@ class Home extends Component {
 
   state = {
      exercise: this.props.navigation.state.params.exercise,
+     selectedForm: this.props.navigation.state.params.selectedForm,
      durations: staticDurations,
      intensities: staticIntensities,
-     selectedForm: 'durationIntensity'
+     distanceUnits: staticDistanceUnits,
+     distance: 5,
+     sliderMinimum: 0,
+     sliderMaximum: 10,
   }
 
   _clearObject = (object) => {
@@ -71,6 +81,13 @@ class Home extends Component {
 
   objectLength = (object) => {
     return Object.keys(object).length
+  }
+
+  _getUnitTypeShort = (distanceUnits) => {
+    return Object.keys(distanceUnits).map((v) => {
+      if (staticDistanceUnits[v].isActive && v == "Miles") return "mi"
+      if (staticDistanceUnits[v].isActive && v == "Kilometers") return "km"
+    })
   }
 
   durationPress = (durationTime) => {
@@ -85,9 +102,23 @@ class Home extends Component {
     this.setState({ intensities: this.state.intensities });
   }
 
+  distanceUnitPress = (distanceType) => {
+    this._clearObject(this.state.distanceUnits);
+    this.state.distanceUnits[distanceType].isActive = true;
+    this.setState({ distanceUnits: this.state.distanceUnits });
+  }
+
+  selectFormPress = (form) => {
+    this.setState({ selectedForm: form })
+  }
+
+  savePress = (form) => {
+    console.log(form)
+  }
+
   render() {
 
-      let { exercise, durations, intensities } = this.state;
+      let { exercise, durations, intensities, distance, distanceUnits } = this.state;
 
       return (
         <Fragment>
@@ -100,7 +131,9 @@ class Home extends Component {
                     <Image source={exercise.iconColor} style={styles.iconSize}/>
                 </View>
 
-                {this._renderDurationIntensity(durations, intensities)}
+                {this._renderDurationIntensityForm(exercise, durations, intensities)}
+                {this._renderDistanceForm(exercise, distance, distanceUnits)}
+                {this._renderProgressForm()}
 
               </ScrollView>
             </LinearGradient>
@@ -109,8 +142,133 @@ class Home extends Component {
       );
     }
 
-    _renderDurationIntensity = (durations, intensities) => {
-        if (this.state.selectedForm == 'durationIntensity') return (
+    _renderSaveButton = (func) => {
+        return (
+          <View style={[{position: 'absolute', bottom: -120, left: marginWidth}]}>
+              <Button 
+                title={"Save"}
+                type="solid"
+                size={240}
+                buttonStyle={{width: (width - marginWidth * 2)}}
+                raised={true}
+                ViewComponent={LinearGradient}
+                titleStyle={{color: 'white'}}
+                linearGradientProps={{
+                    colors: [ '#707070', '#606060' ],
+                    start: { x: 0, y: 0 },
+                    end: { x: 1, y: 1 },
+                }}
+                onPress={func}
+              />
+          </View>
+        )
+    }
+
+    _renderProgressForm = () => {
+      if (this.state.selectedForm == 'View Your Progress') return <Text>Progress</Text>
+    }
+
+    _renderDistanceForm = (exercise, distance, distanceUnits) => {
+
+      let { sliderMinimum, sliderMaximum } = this.state;
+
+      if (this.state.selectedForm == 'Distance') return (
+        <View style={{flex: 1}}>
+          <View style={styles.grid}>
+            <H2>Distance</H2>
+          </View>
+
+          <View style={[styles.grid, { flexDirection: "column", justifyContent: "space-between", alignItems: "center", marginHorizontal: marginWidth, paddingTop: 20 }]}> 
+            <View style={{flexDirection: "row"}}>
+
+              <View style={{flex: 1, justifyContent: "center"}}>
+                <TouchableOpacity style={{paddingHorizontal: 5, justifyContent: "center", alignItems: "center"}} onPress={() => {
+                    this.setState({ 
+                      sliderMaximum: (sliderMaximum / 2 > distance + 1) ? Math.round(sliderMaximum / 2) : Math.round(distance + 1),
+                      sliderMinimum: (sliderMinimum * 2 < distance - 1) ? ((sliderMinimum >= 1) ? Math.round(sliderMinimum * 2) : 1) : ((distance > 0) ? Math.round(distance - 1) : 0)
+                    }, () => {
+                      if (distance > sliderMaximum) this.setState({ distance: sliderMaximum })
+                    })
+                  }}
+                >
+                  <Image style={{height: 22, width: 22}} source={require('../../assets/icons/zoom/zoom-in.png')}/>
+                </TouchableOpacity>
+              </View>
+
+              <View style={{flex: 1, justifyContent: "center", flexDirection: "row"}}>
+                <BodyText style={{fontSize: 22}}>{`${Number(distance).toFixed(2)} `}</BodyText>
+                <BodyText style={{fontSize: 22}}>{this._getUnitTypeShort(distanceUnits)}</BodyText>
+              </View>
+
+              <View style={{flex: 1, justifyContent: "center"}}>
+                <TouchableOpacity style={{paddingHorizontal: 5, justifyContent: "center", alignItems: "center"}} onPress={() => {
+                    this.setState({ 
+                      sliderMaximum: (sliderMaximum * 2 < 50) ? Math.round(sliderMaximum * 2) : 50,
+                      sliderMinimum: (sliderMinimum / 2 > 0 && sliderMinimum > 0)  ? Math.round(sliderMinimum / 2) : 0
+                    })
+                  }}
+                >
+                  <Image style={{height: 22, width: 22}} source={require('../../assets/icons/zoom/zoom-out.png')}/>
+                </TouchableOpacity>
+              </View>
+
+            </View>
+
+            <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+              <Text style={{marginTop: 2}}>{sliderMinimum}</Text>
+              <Slider
+                style={{width: containerWidth - 20, marginTop: marginWidth, height: 50}}
+                minimumValue={sliderMinimum}
+                maximumValue={sliderMaximum}
+                value={distance}
+                onValueChange={(val) => {
+                  this.setState({distance: val})
+                }}
+                minimumTrackTintColor="#FFFFFF"
+                maximumTrackTintColor="#000000"
+              />
+              <Text style={{marginTop: 2}}>{sliderMaximum}</Text>
+            </View>
+          </View>
+
+          <View style={styles.grid}>
+            {Object.keys(distanceUnits).map((v) => {
+              return (
+                <Button 
+                  key={`${v}_distanceButton`}
+                  title={`${v}`}
+                  type="solid"
+                  raised={true}
+                  size={30}
+                  buttonStyle={{ backgroundColor: '#303030', width: (containerWidth / this.objectLength(distanceUnits)) }}
+                  titleStyle={{color: (!distanceUnits[v].isActive) ? 'white' : 'black'}}
+                  containerStyle={{ borderColor: "black", marginHorizontal: marginWidth }}
+                  ViewComponent={LinearGradient}
+                  linearGradientProps={(!distanceUnits[v].isActive) ?
+                  {
+                    colors: [ '#606060', '#505050' ],
+                    start: { x: 0, y: 0 },
+                    end: { x: 1, y: 1 },
+                  } : 
+                  {
+                    colors: [ '#B8B8B8', '#C8C8C8' ],
+                    start: { x: 0, y: 0 },
+                    end: { x: 1, y: 1 },
+                  }}
+                  onPress={() => {this.distanceUnitPress(v)}}
+              />
+              )
+            })}
+          </View>
+
+          {this._renderSaveButton(() => this.savePress(exercise, distance, distanceUnits))}
+
+        </View>
+      )
+    }
+
+    _renderDurationIntensityForm = (exercise, durations, intensities) => {
+        if (this.state.selectedForm == 'Duration & Intensity') return (
           <View style={{flex: 1}}>
               <View style={[styles.grid, {underline: {textDecorationLine: 'underline'}}]}>
                   <H2>Duration</H2>
@@ -180,22 +338,8 @@ class Home extends Component {
                   })}     
               </View>
 
-              <View style={[styles.grid, {marginTop: 150}]}>
-                  <Button 
-                    title={"Save"}
-                    type="solid"
-                    size={240}
-                    buttonStyle={{width: (width - marginWidth * 2)}}
-                    raised={true}
-                    ViewComponent={LinearGradient}
-                    titleStyle={{color: 'white'}}
-                    linearGradientProps={{
-                        colors: [ '#707070', '#606060' ],
-                        start: { x: 0, y: 0 },
-                        end: { x: 1, y: 1 },
-                    }}
-                  />
-              </View>
+              {this._renderSaveButton(() => this.savePress({exercise, durations, intensities}))}
+
           </View>
         )
     }  
@@ -222,7 +366,7 @@ const styles = StyleSheet.create({
   },
   grid: {
     flex: 1, 
-    paddingVertical: 15,
+    paddingVertical: marginWidth,
     justifyContent: "center", 
     alignItems: "center",
     flexDirection: "row"

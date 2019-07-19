@@ -26,7 +26,9 @@ export const exercises = {
     iconColor: runningColor,
     isTouched: false,
     isBottom: false,
-    title: "Walking/Running"
+    title: "Walking/Running",
+    hasDistance: true,
+    hasIntensity: true,
   },
   biking: {
     key: "biking",
@@ -34,7 +36,9 @@ export const exercises = {
     iconColor: bikeColor,
     isTouched: false,
     isBottom: false,
-    title: "Biking"
+    title: "Biking",
+    hasDistance: true,
+    hasIntensity: true,
   },
   lightLifting: {
     key: "lightLifting",
@@ -42,7 +46,9 @@ export const exercises = {
     iconColor: lightLiftingColor,
     isTouched: false,
     isBottom: false,
-    title: "Light Lifting"
+    title: "Light Lifting",
+    hasDistance: false,
+    hasIntensity: true,
   },
   lightExercise: {
     key: "lightExercise",
@@ -50,7 +56,9 @@ export const exercises = {
     iconColor: lightExerciseColor,
     isTouched: false,
     isBottom: false,
-    title: "Static Exercise"
+    title: "Static Exercise",
+    hasDistance: false,
+    hasIntensity: true,
   },
   heavyLifting: {
     key: "heavyLifting",
@@ -58,7 +66,9 @@ export const exercises = {
     iconColor: heavyLiftingColor,
     isTouched: false,
     isBottom: false,
-    title: "Heavy Lifting"
+    title: "Heavy Lifting",
+    hasDistance: false,
+    hasIntensity: true,
   },
   sports: {
     key: "sports",
@@ -66,7 +76,9 @@ export const exercises = {
     iconColor: sportsColor,
     isTouched: false,
     isBottom: false,
-    title: "Sports"
+    title: "Sports",
+    hasDistance: false,
+    hasIntensity: true,
   },
   swimming: {
     key: "swimming",
@@ -74,7 +86,9 @@ export const exercises = {
     iconColor: swimmingColor,
     isTouched: false,
     isBottom: false,
-    title: "Swimming"
+    title: "Swimming",
+    hasDistance: true,
+    hasIntensity: true,
   },
   yoga: {
     key: "yoga",
@@ -82,7 +96,9 @@ export const exercises = {
     iconColor: yogaColor,
     isTouched: false,
     isBottom: false,
-    title: "Yoga/Pilates"
+    title: "Yoga/Pilates",
+    hasDistance: false,
+    hasIntensity: true,
   },
   hiking: {
     key: "hiking",
@@ -90,7 +106,9 @@ export const exercises = {
     iconColor: hikingColor,
     isTouched: false,
     isBottom: true,
-    title: "Hiking"
+    title: "Hiking",
+    hasDistance: true,
+    hasIntensity: true,
   },
   wheelchair: {
     key: "wheelchair",
@@ -98,6 +116,8 @@ export const exercises = {
     iconColor: wheelchairColor,
     isTouched: false,
     isBottom: true,
-    title: "Wheelchair Distance"
+    title: "Wheelchair Distance",
+    hasDistance: true,
+    hasIntensity: false,
   }
 };
